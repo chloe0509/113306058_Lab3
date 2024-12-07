@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>113306058_Lab3_Number Guessing Game</title>
+</head>
+<body>
+  <h1>113306058_Lab3_Number Guessing Game</h1>
+  <div id="result"></div>
+  <script>
+    // 隨機生成 2~99 的目標數字
+    var random = Math.floor(Math.random() * 98) + 2;
+    var attempts = 7; // 剩餘次數
+    var max = 100;    // 最大範圍
+    var min = 1;      // 最小範圍
+
+    // 遊戲主迴圈
+    while (attempts > 0) {
+      // 提示使用者輸入
+      var input = window.prompt("請輸入 " + min + " ~ " + max + " 的數字\n還剩下 " + attempts + " 次機會");
+
+      // 檢查是否取消或輸入無效
+      if (input === null || input.trim() === "" || isNaN(input)) {
+        alert("請輸入有效範圍內的數字! (不能選擇範圍的上下限)");
+        continue; // 重新進入迴圈
+      }
+
+      // 將輸入轉換為數字
+      input = Number(input);
+
+      // 驗證輸入範圍
+      if (input <= min || input >= max) {
+        alert("請輸入有效範圍內的數字! (不能選擇範圍的上下限)");
+        continue; // 重新進入迴圈
+      }
+
+      // 檢查是否猜對
+      if (input === random) {
+        alert("恭喜你答對了!");
+        document.getElementById("result").innerHTML = '<img src="correct.jpg" alt="Correct">';
+        break; // 結束遊戲
+      } else if (input > random) {
+        
+        max = input; // 更新範圍上限
+      } else {
+        
+        min = input; // 更新範圍下限
+      }
+
+      // 減少剩餘次數
+      attempts--;
+
+      // 檢查遊戲是否結束
+      if (attempts === 0) {
+        alert("遊戲結束！正確答案是：" + random);
+        document.getElementById("result").innerHTML = '<img src="wrong.jpg" alt="Wrong">';
+      }
+    }
+  </script>
+</body>
+</html>
